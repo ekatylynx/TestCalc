@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Простой калькулятор на JS</title>
+</head>
+<body>
+  <h3>Калькулятор</h3>
+  <form class="forma">
+    <input class="elem-margin" placeholder="First num" type="number" id="numFirst" />
+
+    <select class="elem-margin" id="calcAction">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+
+    <input class="elem-margin" placeholder="Second num" type="number" id="numSecond" />
+    <input type="submit" value="Посчитать" />
+  </form>
+
+  <span id="calcResult"></span>
+
+  <script>
+
+    let calculator = {
+      // Метод сложения
+      plus: function(one, two) {
+        result = parseInt(one, 10) + parseInt(two, 10);
+        return  `Результат операции: ${result}`;
+      },
+      // Метод вычитания
+      minus: function(one, two) {
+        result = parseInt(one, 10) - parseInt(two, 10);
+        return  `Результат операции: ${result}`;
+      },
+      // Метод умножения
+      multi: function(one, two) {
+        result = parseInt(one, 10) * parseInt(two, 10);
+        return  `Результат операции: ${result}`;
+      },
+      // Метод деления
+      division: function(one, two) {
+        result = parseInt(one, 10) / parseInt(two, 10);
+        return  `Результат операции: ${result}`;
+      },
+
+      check: function(num) {
+        if (parseInt(num, 10) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+      }
+    };
+
+    document.querySelector('form.forma').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (calcAction.value == "+") { // Если действие - это плюс
+        // то в calcResult записываем результат функции plus
+        calcResult.innerHTML = calculator.plus(numFirst.value, numSecond.value);
+
+      } else if (calcAction.value == "-") {
+        calcResult.innerHTML = calculator.minus(numFirst.value, numSecond.value);
+
+      } else if (calcAction.value == "*") {
+        calcResult.innerHTML = calculator.multi(numFirst.value, numSecond.value);
+
+      } else if (calcAction.value == "/") {
+        if (calculator.check(numSecond.value)) { // Проверка, не делим ли на ноль
+            calcResult.innerHTML = calculator.division(numFirst.value, numSecond.value);
+
+        } else {
+            calcResult.innerHTML = "На ноль делить нельзя!";
+        }
+      } else {
+        calcResult.innerHTML = "Проверьте правильность ввода действия!";
+      }
+    });
+  </script>
+
+</body>
+</html>
